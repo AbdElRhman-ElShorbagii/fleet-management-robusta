@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -39,17 +40,27 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
-        $this->ensureIsNotRateLimited();
+        $is_admin = $this->ensureThatUserIsAdmin($this->email);
+        
+        if($is_admin){
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+            $this->ensureIsNotRateLimited();
 
+            if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+                RateLimiter::hit($this->throttleKey());
+
+                throw ValidationException::withMessages([
+                    'email' => trans('auth.failed'),
+                ]);
+            }
+
+            RateLimiter::clear($this->throttleKey());
+        }
+        else{
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'This email is not authorized',
             ]);
         }
-
-        RateLimiter::clear($this->throttleKey());
     }
 
     /**
@@ -81,5 +92,19 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
+    }
+
+    /**
+     * Get the rate limiting throttle key for the request.
+     */
+    public function ensureThatUserIsAdmin($email): bool
+    {
+        $user = User::where('email',$email)->first();
+        if($user->role == 'Admin'){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
