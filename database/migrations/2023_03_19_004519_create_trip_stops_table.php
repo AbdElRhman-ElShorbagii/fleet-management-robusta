@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trip_stop', function (Blueprint $table) {
+        Schema::create('trip_stops', function (Blueprint $table) {
             $table->id();
             $table->foreignId('trip_id')->references('id')->on('trips')->onDelete('cascade');
             $table->foreignId('station_id')->references('id')->on('stations')->onDelete('cascade');
-            $table->smallInteger('order');
             $table->timestamps();
         });
     }

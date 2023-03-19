@@ -12,8 +12,16 @@ class TripStop extends Model
 
     protected $fillable = [
         'trip_id',
-        'station_id',
-        'order'
+        'station_id'
     ];
+
+    public function trip(): BelongsTo
+    {
+        return $this->belongsTo(Trip::class);
+    }
     
+    public function station(): BelongsTo
+    {
+        return $this->belongsTo(Station::class);
+    }
 }
