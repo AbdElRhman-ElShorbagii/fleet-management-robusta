@@ -15,8 +15,8 @@ class Bus extends Model
         'available_seats'
     ];
 
-    public function trips(): HasMany
+    public function seats(): HasMany
     {
-        return $this->hasMany(Bus::class);
+        return $this->hasMany(Seat::class);
     }
 }
