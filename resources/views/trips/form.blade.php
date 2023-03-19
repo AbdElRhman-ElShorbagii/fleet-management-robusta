@@ -28,7 +28,10 @@
                             <select name="start_station_id" value="{{$trip->start_station_id ?? old('start_station_id')}}" class="mt-1 block">
                                 <option value="">Select Station</option>
                                 @foreach($stations as $station)
-                                    <option value="{{$station->id}}" {{ $station->id == $trip->start_station_id ? 'selected' : '' }}>{{$station->name}}</option>
+                                    <option value="{{$station->id}}">{{$station->name}}</option>
+                                    @isset($trip)
+                                        <option value="{{$station->id}}" {{ $station->id == $trip->start_station_id ? 'selected' : '' }}>{{$station->name}}</option>
+                                    @endisset        
                                 @endforeach
                            </select>                                                                    
                             <x-input-error class="mt-2" :messages="$errors->get('start_station_id')" />
@@ -38,7 +41,10 @@
                             <select name="end_station_id" value="{{$trip->end_station_id ?? old('end_station_id')}}" class="mt-1 block">
                                 <option value="">Select Station</option>
                                 @foreach($stations as $station)
-                                    <option value="{{$station->id}}" {{ $station->id == $trip->end_station_id ? 'selected' : '' }}>{{$station->name}}</option>
+                                    <option value="{{$station->id}}">{{$station->name}}</option>
+                                    @isset($trip)
+                                        <option value="{{$station->id}}" {{ $station->id == $trip->end_station_id ? 'selected' : '' }}>{{$station->name}}</option>
+                                    @endisset        
                                 @endforeach
                            </select>                                                                    
                             <x-input-error class="mt-2" :messages="$errors->get('end_station_id')" />
@@ -48,7 +54,10 @@
                             <select name="bus_id" :value="$trip->bus_id ?? old('bus_id')" class="mt-1 block">
                                 <option value="">Select Bus</option>
                                 @foreach($buses as $bus)
-                                    <option value="{{$bus->id}}" {{ $bus->id == $trip->bus_id ? 'selected' : '' }}>{{$bus->name}}</option>
+                                    <option value="{{$bus->id}}" >{{$bus->name}}</option>
+                                    @isset($trip)
+                                        <option value="{{$bus->id}}" {{ $bus->id == $trip->bus_id ? 'selected' : '' }} >{{$station->name}}</option>
+                                    @endisset        
                                 @endforeach
                            </select>                                                                    
                             <x-input-error class="mt-2" :messages="$errors->get('bus_id')" />

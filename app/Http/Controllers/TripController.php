@@ -7,6 +7,7 @@ use App\Http\Requests\Trip\StoreRequest;
 use App\Models\Bus;
 use App\Models\Station;
 use App\Models\Trip;
+use App\Models\TripStop;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -60,6 +61,7 @@ class TripController extends Controller
     {
         return response()->view('trips.show', [
             'trip' => Trip::with('startStation','endStation','bus')->findOrFail($id),
+            'tripStops' => TripStop::with('trip','station')->where('trip_id',$id)->get()
         ]);
     }
 
