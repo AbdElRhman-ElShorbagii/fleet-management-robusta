@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -23,6 +24,12 @@
                 <header class="bg-white dark:bg-gray-800 shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
+
+                        @if (Session::has('notify.success'))
+                        <div class="bg-blue-300 mt-2 p-4">
+                            <span class="text-white">{{ Session::get('notify.success') }}</span>
+                        </div>
+                        @endif
                     </div>
                 </header>
             @endif

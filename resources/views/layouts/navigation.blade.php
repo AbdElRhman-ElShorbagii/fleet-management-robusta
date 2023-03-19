@@ -15,6 +15,22 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('stations.index')" :active="request()->routeIs('stations.index')">
+                        {{ __('Stations') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('buses.index')" :active="request()->routeIs('buses.index')">
+                        {{ __('Buses') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('trips.index')" :active="request()->routeIs('trips.index')">
+                        {{ __('Trips') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('trip-stops.index')" :active="request()->routeIs('trip-stops.index')">
+                        {{ __('Trip Stops') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
+                        {{ __('Reservations') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
