@@ -25,8 +25,12 @@
                         </div>
                         <div>
                             <x-input-label for="available_seats" value="Available Seats" />
-                            <x-text-input id="available_seats" name="available_seats" type="number" min='1' class="mt-1 block w-full" :value="$bus->available_seats ?? old('available_seats')" required autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('available_seats')" />
+                            @if(isset($bus))
+                                <x-input-label for="available_seats" :value="$bus->available_seats" />
+                            @else
+                                <x-text-input id="available_seats" name="available_seats" type="number" min='1' class="mt-1 block w-full" :value="$bus->available_seats ?? old('available_seats')" required autofocus />
+                            @endIf
+                            <x-input-error class="mt-2" :messages="$errors->get('available_seats')" /> 
                         </div>
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>

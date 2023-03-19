@@ -79,7 +79,9 @@ class BusController extends Controller
         $bus = Bus::findOrFail($id);
         $validated = $request->validated();
 
-        $update = $bus->update($validated);
+        $update = $bus->update([
+            'name'=>$validated['name']
+        ]);
 
         if($update) {
             session()->flash('notify.success', 'Bus updated successfully!');
