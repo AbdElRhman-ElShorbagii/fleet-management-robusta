@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StationController;
+use App\Http\Controllers\TripController;
+use App\Http\Controllers\TripStopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +26,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('/stations', StationController::class);
+    Route::resource('/buses', BusController::class);
+    Route::resource('/trips', TripController::class);
+    Route::resource('/trip-stops', TripStopController::class);
+    Route::resource('/reservations', StationController::class);
 });
 
 require __DIR__.'/auth.php';
