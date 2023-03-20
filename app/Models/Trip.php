@@ -30,9 +30,9 @@ class Trip extends Model
         return $this->belongsTo(Station::class,'end_station_id');
     }
 
-    public function stops(): BelongsToMany
+    public function stops(): HasMany
     {
-        return $this->belongsToMany(Station::class);
+        return $this->hasMany(TripStop::class);
     }
 
     public function bus(): BelongsTo

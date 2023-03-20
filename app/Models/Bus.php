@@ -19,4 +19,9 @@ class Bus extends Model
     {
         return $this->hasMany(Seat::class);
     }
+
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }
