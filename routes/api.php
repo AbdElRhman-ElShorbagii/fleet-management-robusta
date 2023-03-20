@@ -22,9 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('register-user', [APIAuthController::class, 'register']);
 Route::post('user-login', [APIAuthController::class, 'login']);
 
-Route::group([ 'middleware'=>'auth:sanctum'], function() {
+Route::group([ 'middleware'=>'auth:sanctum','abilities:user'], function() {
     Route::post('/logout', [APIAuthController::class, 'logout']);
-
     Route::prefix('reservation')->group(function () {
         Route::get('check-available-seat', [ReservationController::class, 'checkAvailableSeat']);
         Route::post('make-reservation', [ReservationController::class, 'makeReservation']);    
