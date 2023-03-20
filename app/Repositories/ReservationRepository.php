@@ -20,8 +20,6 @@ class ReservationRepository implements ReservationRepositoryInterface
         $trip_stop_from_station_id = TripStop::where('trip_id',$trip_id)->where('station_id',$from_station_id)->first();
         $trip_stop_to_station_id = TripStop::where('trip_id',$trip_id)->where('station_id',$to_station_id)->first();
 
-        // $full_reservations_count = Reservation::where('trip_id',$trip->id)->where('from_station_id',$trip->start_station_id)->where('to_station_id',$trip->end_station_id)->count();
-
         $is_going_from_start_to_end_station = Trip::where('id',$trip_id)->where('start_station_id',$from_station_id)->where('end_station_id',$to_station_id)->first();
 
         $is_going_from_start = Trip::where('id',$trip_id)->where('start_station_id',$from_station_id)->first();
